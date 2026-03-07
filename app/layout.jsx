@@ -1,7 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
-import { Toaster } from "@/components/ui/sonner";
+import Toaster from "@/components/ui/sonner";
 
 export const metadata = {
   title: "Sentinels Design Lab",

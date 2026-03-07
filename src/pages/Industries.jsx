@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Home, Hammer, TreePine, Truck, Briefcase, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { createPageUrl } from "@/utils";
 import SectionHeading from "@/components/shared/SectionHeading";
 import CTASection from "@/components/shared/CTASection";

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Globe, RefreshCw, Wrench, Layers, ArrowRight, Check } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { createPageUrl } from "@/utils";
 import SectionHeading from "@/components/shared/SectionHeading";
 import CTASection from "@/components/shared/CTASection";
