@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
