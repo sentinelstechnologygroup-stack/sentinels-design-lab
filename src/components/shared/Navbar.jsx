@@ -8,13 +8,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", page: "Home" },
-  { label: "Work", page: "Work" },
-  { label: "Services", page: "Services" },
-  { label: "Industries", page: "Industries" },
-  { label: "Platform", page: "Platform" },
-  { label: "Process", page: "Process" },
-  { label: "Insights", page: "Insights" },
-  { label: "About", page: "About" },
+  //{ label: "Work", page: "Work" },
+  //{ label: "Services", page: "Services" },
+  //{ label: "Industries", page: "Industries" },
+  //{ label: "Platform", page: "Platform" },
+  //{ label: "Process", page: "Process" },
+  //{ label: "Insights", page: "Insights" },
+  //{ label: "About", page: "About" },
 ];
 
 export default function Navbar({ currentPage }) {

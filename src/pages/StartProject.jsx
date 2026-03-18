@@ -1,9 +1,12 @@
+// src/pages/StartProject
 "use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+
+const FORMSPREE_PROJECT_ENDPOINT = "https://formspree.io/f/xdawpvqr";
 
 const industries = [
   { value: "home_services", label: "Home Services" },
@@ -38,6 +41,10 @@ const timelines = [
 ];
 
 export default function StartProject() {
+  const getLabel = (list, value) => {
+  const item = list.find((i) => i.value === value);
+  return item ? item.label : value || "—";
+  };
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -52,16 +59,63 @@ export default function StartProject() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (field, value) => setForm((prev) => ({ ...prev, [field]: value }));
+  const handleChange = (field, value) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  await new Promise((resolve) => setTimeout(resolve, 600));
-  setLoading(false);
-  setSubmitted(true);
-  toast.success("Project inquiry submitted!");
-};
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch(FORMSPREE_PROJECT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      body: JSON.stringify({
+        _subject: "New Project Request — Sentinels Design Lab",
+
+        Name: form.name,
+        Company: form.company || "—",
+        Email: form.email,
+        Phone: form.phone || "—",
+
+        Industry: getLabel(industries, form.industry),
+        "Project Type": getLabel(projectTypes, form.project_type),
+        Budget: getLabel(budgets, form.budget_range),
+        Timeline: getLabel(timelines, form.timeline),
+
+        "Project Details": form.description || "—",
+      }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed.");
+      }
+
+      setSubmitted(true);
+      setForm({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+        industry: "",
+        project_type: "",
+        budget_range: "",
+        timeline: "",
+        description: "",
+      });
+
+      toast.success("Project inquiry submitted!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (submitted) {
     return (
@@ -76,8 +130,9 @@ export default function StartProject() {
           </div>
           <h2 className="text-3xl font-bold text-white mb-4">Thank you.</h2>
           <p className="text-white/50 leading-relaxed">
-            We've received your project inquiry and will get back to you within 24 hours to schedule 
-            a consultation. In the meantime, feel free to explore our work.
+            We&apos;ve received your project inquiry and will get back to you within 24
+            hours to schedule a consultation. In the meantime, feel free to explore
+            our work.
           </p>
         </motion.div>
       </section>
@@ -102,11 +157,11 @@ export default function StartProject() {
             Start a Project
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-6">
-            Let's build something exceptional.
+            Let&apos;s build something exceptional.
           </h1>
           <p className="text-lg text-white/40 leading-relaxed">
-            Tell us about your project and we'll schedule a consultation to discuss 
-            the best approach for your business.
+            Tell us about your project and we&apos;ll schedule a consultation to
+            discuss the best approach for your business.
           </p>
         </motion.div>
 
@@ -117,11 +172,24 @@ export default function StartProject() {
           onSubmit={handleSubmit}
           className="space-y-6"
         >
+          <input
+            type="text"
+            name="_gotcha"
+            className="hidden"
+            tabIndex={-1}
+            autoComplete="off"
+            value=""
+            readOnly
+          />
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Name *</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Name *
+              </label>
               <input
                 type="text"
+                name="name"
                 required
                 value={form.name}
                 onChange={(e) => handleChange("name", e.target.value)}
@@ -130,9 +198,12 @@ export default function StartProject() {
               />
             </div>
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Company</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Company
+              </label>
               <input
                 type="text"
+                name="company"
                 value={form.company}
                 onChange={(e) => handleChange("company", e.target.value)}
                 placeholder="Company name"
@@ -143,9 +214,12 @@ export default function StartProject() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Email *</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Email *
+              </label>
               <input
                 type="email"
+                name="email"
                 required
                 value={form.email}
                 onChange={(e) => handleChange("email", e.target.value)}
@@ -154,9 +228,12 @@ export default function StartProject() {
               />
             </div>
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Phone</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Phone
+              </label>
               <input
                 type="tel"
+                name="phone"
                 value={form.phone}
                 onChange={(e) => handleChange("phone", e.target.value)}
                 placeholder="(555) 000-0000"
@@ -167,13 +244,18 @@ export default function StartProject() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Industry</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Industry
+              </label>
               <select
+                name="industry"
                 value={form.industry}
                 onChange={(e) => handleChange("industry", e.target.value)}
                 className={selectClass}
               >
-                <option value="" className="bg-[#111118]">Select industry</option>
+                <option value="" className="bg-[#111118]">
+                  Select industry
+                </option>
                 {industries.map((ind) => (
                   <option key={ind.value} value={ind.value} className="bg-[#111118]">
                     {ind.label}
@@ -182,13 +264,18 @@ export default function StartProject() {
               </select>
             </div>
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Project Type</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Project Type
+              </label>
               <select
+                name="project_type"
                 value={form.project_type}
                 onChange={(e) => handleChange("project_type", e.target.value)}
                 className={selectClass}
               >
-                <option value="" className="bg-[#111118]">Select type</option>
+                <option value="" className="bg-[#111118]">
+                  Select type
+                </option>
                 {projectTypes.map((pt) => (
                   <option key={pt.value} value={pt.value} className="bg-[#111118]">
                     {pt.label}
@@ -200,13 +287,18 @@ export default function StartProject() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Budget Range</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Budget Range
+              </label>
               <select
+                name="budget_range"
                 value={form.budget_range}
                 onChange={(e) => handleChange("budget_range", e.target.value)}
                 className={selectClass}
               >
-                <option value="" className="bg-[#111118]">Select budget</option>
+                <option value="" className="bg-[#111118]">
+                  Select budget
+                </option>
                 {budgets.map((b) => (
                   <option key={b.value} value={b.value} className="bg-[#111118]">
                     {b.label}
@@ -215,13 +307,18 @@ export default function StartProject() {
               </select>
             </div>
             <div>
-              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Timeline</label>
+              <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                Timeline
+              </label>
               <select
+                name="timeline"
                 value={form.timeline}
                 onChange={(e) => handleChange("timeline", e.target.value)}
                 className={selectClass}
               >
-                <option value="" className="bg-[#111118]">Select timeline</option>
+                <option value="" className="bg-[#111118]">
+                  Select timeline
+                </option>
                 {timelines.map((t) => (
                   <option key={t.value} value={t.value} className="bg-[#111118]">
                     {t.label}
@@ -232,8 +329,11 @@ export default function StartProject() {
           </div>
 
           <div>
-            <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Project Description</label>
+            <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+              Project Description
+            </label>
             <textarea
+              name="description"
               value={form.description}
               onChange={(e) => handleChange("description", e.target.value)}
               placeholder="Tell us about your project, goals, and any specific requirements..."

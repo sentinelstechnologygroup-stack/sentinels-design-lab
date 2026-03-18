@@ -1,3 +1,4 @@
+// src/pages/contact.jsx
 "use client";
 
 import React, { useState } from "react";
@@ -5,19 +6,57 @@ import { motion } from "framer-motion";
 import { Mail, Phone, ArrowRight, Check, Loader2, MapPin } from "lucide-react";
 import { toast } from "sonner";
 
+const FORMSPREE_CONTACT_ENDPOINT = "https://formspree.io/f/mnjgoknr";
+
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", description: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    description: "",
+  });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  await new Promise((resolve) => setTimeout(resolve, 600));
-  setLoading(false);
-  setSubmitted(true);
-  toast.success("Message sent!");
-};
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch(FORMSPREE_CONTACT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      body: JSON.stringify({
+        _subject: "New Contact Message — Sentinels Design Lab",
+
+        Name: form.name,
+        Email: form.email,
+
+        Message: form.description || "—",
+      }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Form submission failed.");
+      }
+
+      setSubmitted(true);
+      setForm({
+        name: "",
+        email: "",
+        description: "",
+      });
+
+      toast.success("Message sent!");
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const inputClass =
     "w-full px-4 py-3.5 bg-white/[0.03] border border-white/10 rounded-xl text-white placeholder-white/25 text-sm focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all";
@@ -26,7 +65,6 @@ export default function Contact() {
     <section className="pt-32 pb-20 bg-[#0a0a0f] min-h-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-          {/* Left: Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -39,8 +77,8 @@ export default function Contact() {
               Get in touch.
             </h1>
             <p className="text-lg text-white/40 leading-relaxed mb-12">
-              Have a question, a project idea, or just want to learn more about how we work? 
-              Reach out and we'll get back to you promptly.
+              Have a question, a project idea, or just want to learn more about how we
+              work? Reach out and we&apos;ll get back to you promptly.
             </p>
 
             <div className="space-y-8">
@@ -50,8 +88,11 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-sm font-medium text-white mb-1">Email</h4>
-                  <a href="mailto:hello@sentinelsdesignlab.com" className="text-white/40 text-sm hover:text-white transition-colors">
-                    hello@sentinelsdesignlab.com
+                  <a
+                    href="mailto:info@sentinelsdesignlab.com"
+                    className="text-white/40 text-sm hover:text-white transition-colors"
+                  >
+                    info@sentinelsdesignlab.com
                   </a>
                 </div>
               </div>
@@ -62,9 +103,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-sm font-medium text-white mb-1">Phone</h4>
-                  <a href="tel:+15551234567" className="text-white/40 text-sm hover:text-white transition-colors">
-                    (555) 123-4567
-                  </a>
+                  <p className="text-white/40 text-sm">Available on request</p>
                 </div>
               </div>
 
@@ -74,13 +113,14 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-sm font-medium text-white mb-1">Location</h4>
-                  <p className="text-white/40 text-sm">Remote Studio — Serving clients nationwide</p>
+                  <p className="text-white/40 text-sm">
+                    Texas-based studio — serving clients nationwide
+                  </p>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Right: Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -93,17 +133,33 @@ export default function Contact() {
                     <Check className="w-7 h-7 text-emerald-400" />
                   </div>
                   <h3 className="text-xl font-semibold text-white mb-2">Message sent</h3>
-                  <p className="text-white/40 text-sm">We'll get back to you within 24 hours.</p>
+                  <p className="text-white/40 text-sm">
+                    We&apos;ll get back to you within 24 hours.
+                  </p>
                 </div>
               </div>
             ) : (
               <div className="p-8 md:p-10 rounded-2xl bg-[#111118] border border-white/5">
                 <h3 className="text-xl font-semibold text-white mb-6">Send us a message</h3>
+
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value=""
+                    readOnly
+                  />
+
                   <div>
-                    <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Name *</label>
+                    <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                      Name *
+                    </label>
                     <input
                       type="text"
+                      name="name"
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -111,10 +167,14 @@ export default function Contact() {
                       className={inputClass}
                     />
                   </div>
+
                   <div>
-                    <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Email *</label>
+                    <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                      Email *
+                    </label>
                     <input
                       type="email"
+                      name="email"
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -122,9 +182,13 @@ export default function Contact() {
                       className={inputClass}
                     />
                   </div>
+
                   <div>
-                    <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">Message</label>
+                    <label className="block text-xs text-white/30 uppercase tracking-wider mb-2">
+                      Message
+                    </label>
                     <textarea
+                      name="message"
                       value={form.description}
                       onChange={(e) => setForm({ ...form, description: e.target.value })}
                       placeholder="How can we help?"
@@ -132,6 +196,7 @@ export default function Contact() {
                       className={`${inputClass} resize-none`}
                     />
                   </div>
+
                   <button
                     type="submit"
                     disabled={loading}
