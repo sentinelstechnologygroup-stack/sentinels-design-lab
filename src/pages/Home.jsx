@@ -12,11 +12,17 @@ import TechStack from "@/components/home/TechStack";
 import HomePackagesPreview from "@/components/home/HomePackagesPreview";
 import HomeProofStrip from "@/components/home/HomeProofStrip";
 import HomeFinalCTA from "@/components/home/HomeFinalCTA";
+import WhyHireSDL from "@/components/home/WhyHireSDL";
+import ProofStrip from "@/components/Home/ProofStrip";
+import ProcessSteps from "@/components/home/ProcessSteps";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
+      <WhyHireSDL />
+      <ProofStrip />
+      <ProcessSteps />
       <HomeProofStrip />
       <WhatWeBuild />
       <HomePackagesPreview />

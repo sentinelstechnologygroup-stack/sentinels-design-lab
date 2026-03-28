@@ -1,7 +1,7 @@
 // src/utils/index.js
 const pageRoutes = {
   Home: "/",
-  Work: "/work",
+  Projects: "/projects",
   Services: "/services",
   Industries: "/industries",
   Platform: "/platform",

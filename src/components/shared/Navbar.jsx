@@ -1,3 +1,4 @@
+// src/components/layout/Navbar.jsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -9,6 +10,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", page: "Home" },
+  { label: "Services", page: "Services" },
+  { label: "Packages", page: "Packages" },
+  { label: "Projects", page: "Projects" },
+  { label: "About", page: "About" },
+  { label: "Contact", page: "Contact" },
 ];
 
 export default function Navbar({ currentPage }) {
@@ -32,8 +38,6 @@ export default function Navbar({ currentPage }) {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-[84px]">
-            
-            {/* LOGO */}
             <Link href={createPageUrl("Home")} className="flex items-center">
               <Image
                 src="/images/logo.png"
@@ -45,7 +49,6 @@ export default function Navbar({ currentPage }) {
               />
             </Link>
 
-            {/* NAV */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
@@ -62,7 +65,6 @@ export default function Navbar({ currentPage }) {
               ))}
             </div>
 
-            {/* CTA */}
             <div className="hidden lg:block">
               <Link
                 href={createPageUrl("StartProject")}
@@ -73,10 +75,10 @@ export default function Navbar({ currentPage }) {
               </Link>
             </div>
 
-            {/* MOBILE BUTTON */}
             <button
               onClick={() => setMobileOpen(true)}
               className="lg:hidden text-white p-2"
+              aria-label="Open menu"
             >
               <Menu className="w-6 h-6" />
             </button>
@@ -84,7 +86,6 @@ export default function Navbar({ currentPage }) {
         </div>
       </nav>
 
-      {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -94,8 +95,6 @@ export default function Navbar({ currentPage }) {
             className="fixed inset-0 z-[60] bg-[#0a0a0f] flex flex-col"
           >
             <div className="flex items-center justify-between px-6 h-[84px]">
-              
-              {/* MOBILE LOGO */}
               <Link
                 href={createPageUrl("Home")}
                 onClick={() => setMobileOpen(false)}
@@ -113,6 +112,7 @@ export default function Navbar({ currentPage }) {
               <button
                 onClick={() => setMobileOpen(false)}
                 className="text-white p-2"
+                aria-label="Close menu"
               >
                 <X className="w-6 h-6" />
               </button>

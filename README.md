@@ -7,7 +7,7 @@
 - Added a shared `app/layout.jsx`
 - Converted navigation to stable production routes:
   - `/`
-  - `/work`
+  - `/projects`
   - `/services`
   - `/industries`
   - `/platform`

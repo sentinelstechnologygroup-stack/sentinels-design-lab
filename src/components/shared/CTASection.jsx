@@ -24,7 +24,9 @@ export default function CTASection({
     <section className="relative overflow-hidden py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0d0d1a] to-[#0a0a0f]" />
       <div className="absolute inset-0">
-        <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/5 blur-[120px]" />
+        <p className="text-white/60 max-w-[600px] mx-auto text-center mt-4">
+  Strategy-first builds. No bloated agency process. Just clean, deployable websites built for real business use.
+        </p>
       </div>
 
       <motion.div
