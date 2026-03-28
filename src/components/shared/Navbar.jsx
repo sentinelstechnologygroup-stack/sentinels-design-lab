@@ -2,19 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { createPageUrl } from "@/utils";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", page: "Home" },
-  //{ label: "Work", page: "Work" },
-  //{ label: "Services", page: "Services" },
-  //{ label: "Industries", page: "Industries" },
-  //{ label: "Platform", page: "Platform" },
-  //{ label: "Process", page: "Process" },
-  //{ label: "Insights", page: "Insights" },
-  //{ label: "About", page: "About" },
 ];
 
 export default function Navbar({ currentPage }) {
@@ -37,16 +31,21 @@ export default function Navbar({ currentPage }) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
-            <Link href={createPageUrl("Home")} className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-violet-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
-              <span className="text-white font-semibold text-lg tracking-tight">
-                Sentinels<span className="text-white/50 font-light"> Design Lab</span>
-              </span>
+          <div className="flex items-center justify-between h-[84px]">
+            
+            {/* LOGO */}
+            <Link href={createPageUrl("Home")} className="flex items-center">
+              <Image
+                src="/images/logo.png"
+                alt="Sentinels Design Lab"
+                width={220}
+                height={80}
+                className="h-[56px] w-auto object-contain"
+                priority
+              />
             </Link>
 
+            {/* NAV */}
             <div className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => (
                 <Link
@@ -63,6 +62,7 @@ export default function Navbar({ currentPage }) {
               ))}
             </div>
 
+            {/* CTA */}
             <div className="hidden lg:block">
               <Link
                 href={createPageUrl("StartProject")}
@@ -73,6 +73,7 @@ export default function Navbar({ currentPage }) {
               </Link>
             </div>
 
+            {/* MOBILE BUTTON */}
             <button
               onClick={() => setMobileOpen(true)}
               className="lg:hidden text-white p-2"
@@ -83,6 +84,7 @@ export default function Navbar({ currentPage }) {
         </div>
       </nav>
 
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -91,12 +93,31 @@ export default function Navbar({ currentPage }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] bg-[#0a0a0f] flex flex-col"
           >
-            <div className="flex items-center justify-between px-6 h-20">
-              <span className="text-white font-semibold text-lg">SDL</span>
-              <button onClick={() => setMobileOpen(false)} className="text-white p-2">
+            <div className="flex items-center justify-between px-6 h-[84px]">
+              
+              {/* MOBILE LOGO */}
+              <Link
+                href={createPageUrl("Home")}
+                onClick={() => setMobileOpen(false)}
+              >
+                <Image
+                  src="/images/logo.png"
+                  alt="Sentinels Design Lab"
+                  width={200}
+                  height={70}
+                  className="h-[50px] w-auto object-contain"
+                  priority
+                />
+              </Link>
+
+              <button
+                onClick={() => setMobileOpen(false)}
+                className="text-white p-2"
+              >
                 <X className="w-6 h-6" />
               </button>
             </div>
+
             <div className="flex-1 flex flex-col justify-center px-6 gap-2">
               {navLinks.map((link, i) => (
                 <motion.div
@@ -108,20 +129,14 @@ export default function Navbar({ currentPage }) {
                   <Link
                     href={createPageUrl(link.page)}
                     onClick={() => setMobileOpen(false)}
-                    className={`block text-3xl font-light py-3 transition-colors ${
-                      currentPage === link.page ? "text-white" : "text-white/40 hover:text-white"
-                    }`}
+                    className="block text-3xl font-light py-3 text-white/70 hover:text-white"
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="mt-8"
-              >
+
+              <div className="mt-8">
                 <Link
                   href={createPageUrl("StartProject")}
                   onClick={() => setMobileOpen(false)}
@@ -130,7 +145,7 @@ export default function Navbar({ currentPage }) {
                   Start a Project
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         )}

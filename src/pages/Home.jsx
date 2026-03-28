@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 "use client";
 
 import React from "react";
@@ -5,22 +6,26 @@ import HeroSection from "@/components/home/HeroSection";
 import WhatWeBuild from "@/components/home/WhatWeBuild";
 import FeaturedWork from "@/components/home/FeaturedWork";
 import ApproachSection from "@/components/home/ApproachSection";
+import FounderVision from "@/components/home/FounderVision";
 import IndustriesStrip from "@/components/home/IndustriesStrip";
 import TechStack from "@/components/home/TechStack";
-import FounderVision from "@/components/home/FounderVision";
-import CTASection from "@/components/shared/CTASection";
+import HomePackagesPreview from "@/components/home/HomePackagesPreview";
+import HomeProofStrip from "@/components/home/HomeProofStrip";
+import HomeFinalCTA from "@/components/home/HomeFinalCTA";
 
 export default function Home() {
   return (
     <>
       <HeroSection />
+      <HomeProofStrip />
       <WhatWeBuild />
-      <FounderVision />
-      <FeaturedWork />
+      <HomePackagesPreview />
       <ApproachSection />
+      <FeaturedWork />
+      <FounderVision />
       <IndustriesStrip />
       <TechStack />
-      <CTASection />
+      <HomeFinalCTA />
     </>
   );
 }

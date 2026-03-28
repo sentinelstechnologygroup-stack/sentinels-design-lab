@@ -1,132 +1,190 @@
+// src/pages/Services.jsx
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { Globe, RefreshCw, Wrench, Layers, ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
+import { ArrowRight, CheckCircle2, Layers3, Search, MousePointerClick, Palette } from "lucide-react";
 import { createPageUrl } from "@/utils";
-import SectionHeading from "@/components/shared/SectionHeading";
 import CTASection from "@/components/shared/CTASection";
 
 const services = [
   {
-    icon: Globe,
     title: "Website Design & Development",
-    description: "Modern websites built for performance, SEO, and conversion. We use Next.js, React, and Tailwind to create production-grade experiences.",
-    features: [
-      "Custom design tailored to your brand",
-      "SEO-ready architecture from day one",
-      "PPC & advertising compatibility",
-      "Mobile-first responsive design",
-      "AI crawler accessibility",
-      "Sub-second load times",
+    slug: "services/website-design-development",
+    icon: Layers3,
+    summary:
+      "Modern websites built to support trust, lead generation, SEO structure, and future upgrades.",
+    bestFor: "Businesses with an outdated site, weak conversion flow, or no real digital foundation.",
+    included: [
+      "Custom page structure",
+      "Conversion-first layouts",
+      "Mobile-first implementation",
+      "SEO-ready foundations",
+      "Lead capture setup",
+      "Launch support",
     ],
-    gradient: "from-blue-500 to-blue-600",
   },
   {
-    icon: RefreshCw,
-    title: "Website Modernization",
-    description: "Replace outdated legacy websites with modern systems that support SEO, PPC, analytics, and deliver better user experiences.",
-    features: [
-      "Rebuild from legacy platforms",
-      "Content migration & optimization",
-      "Modern performance standards",
-      "Analytics integration",
-      "Improved mobile experience",
-      "Future-proof architecture",
+    title: "SEO Services",
+    slug: "services/seo-services",
+    icon: Search,
+    summary:
+      "Search-focused structure and expansion planning for businesses that need stronger visibility.",
+    bestFor: "Businesses that are hard to find or poorly structured for service and location relevance.",
+    included: [
+      "Keyword and intent mapping",
+      "Service page strategy",
+      "Location targeting direction",
+      "Technical priorities",
+      "Internal linking direction",
+      "Expansion roadmap",
     ],
-    gradient: "from-violet-500 to-violet-600",
   },
   {
-    icon: Wrench,
-    title: "Operational Tools",
-    description: "Websites as business tools — not just marketing pages. We build calculators, dashboards, booking flows, and lead capture systems.",
-    features: [
-      "Quoting calculators",
-      "Service area maps",
-      "Booking & scheduling flows",
-      "Operational dashboards",
-      "Lead capture pipelines",
-      "Customer portals",
+    title: "PPC / Paid Ads",
+    slug: "services/ppc-paid-ads",
+    icon: MousePointerClick,
+    summary:
+      "Landing-path strategy built to help paid traffic convert instead of leaking away.",
+    bestFor: "Businesses running ads, planning ads, or needing cleaner click-to-inquiry paths.",
+    included: [
+      "Offer alignment review",
+      "Landing page direction",
+      "CTA hierarchy",
+      "Form friction reduction",
+      "Trust section guidance",
+      "Tracking-readiness direction",
     ],
-    gradient: "from-emerald-500 to-emerald-600",
   },
   {
-    icon: Layers,
-    title: "Industry Platforms",
-    description: "Vertical-reskin web systems for specific trades. Reusable infrastructure with customized branding that scales across 50+ industries.",
-    features: [
-      "Trade-specific templates",
-      "Scalable multi-tenant architecture",
-      "Customizable branding per client",
-      "Built-in operational tools",
-      "Industry-specific SEO",
-      "White-label capabilities",
+    title: "Branding & Identity",
+    slug: "services/branding-identity",
+    icon: Palette,
+    summary:
+      "Visual and messaging alignment that makes the business feel cleaner, more credible, and more established.",
+    bestFor: "Businesses with dated branding, inconsistent visuals, or a site redesign in progress.",
+    included: [
+      "Brand direction guidance",
+      "Identity refinement",
+      "Color and typography alignment",
+      "Messaging support",
+      "Website visual cohesion",
+      "Cross-touchpoint consistency",
     ],
-    gradient: "from-amber-500 to-amber-600",
   },
 ];
 
 export default function Services() {
   return (
     <>
-      <section className="pt-32 pb-20 bg-[#0a0a0f]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <SectionHeading
-            label="Services"
-            title="What we do"
-            description="We build digital infrastructure — not templates. Every project is engineered for performance, clarity, and long-term value."
-          />
+      <section className="bg-[#0a0a0f] pt-32 pb-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <span className="inline-block text-xs font-medium uppercase tracking-[0.2em] text-blue-400 mb-4">
+              Services
+            </span>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+              Services built around growth, not guesswork
+            </h1>
+            <p className="mt-6 text-lg leading-relaxed text-white/50">
+              Every core SDL service should make the business stronger, clearer, and easier to act on.
+              These pages are built to explain what is included, what it actually does, and how the next step works.
+            </p>
+          </div>
 
-          <div className="space-y-8">
-            {services.map((service, i) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group relative rounded-2xl bg-[#111118] border border-white/5 hover:border-white/10 overflow-hidden transition-all duration-500"
-              >
-                <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${service.gradient} opacity-50`} />
-                <div className="p-8 md:p-12">
-                  <div className="flex flex-col lg:flex-row lg:items-start gap-8">
-                    <div className="flex-1">
-                      <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6">
-                        <service.icon className="w-6 h-6 text-white/70" />
+          <div className="mt-14 grid gap-6">
+            {services.map((service) => {
+              const Icon = service.icon;
+              return (
+                <div
+                  key={service.title}
+                  className="rounded-3xl border border-white/8 bg-[#111118] p-8 lg:p-10"
+                >
+                  <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+                    <div>
+                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5">
+                        <Icon className="h-6 w-6 text-white/75" />
                       </div>
-                      <h3 className="text-2xl font-bold text-white mb-4">{service.title}</h3>
-                      <p className="text-white/50 leading-relaxed max-w-xl">{service.description}</p>
+
+                      <h2 className="text-2xl md:text-3xl font-semibold text-white">
+                        {service.title}
+                      </h2>
+
+                      <p className="mt-4 text-white/50 leading-relaxed">
+                        {service.summary}
+                      </p>
+
+                      <div className="mt-6 rounded-2xl border border-white/8 bg-white/[0.03] p-5">
+                        <p className="text-xs uppercase tracking-[0.2em] text-white/35">Best for</p>
+                        <p className="mt-3 text-sm leading-relaxed text-white/65">{service.bestFor}</p>
+                      </div>
                     </div>
-                    <div className="lg:w-80">
-                      <ul className="space-y-3">
-                        {service.features.map((feature) => (
-                          <li key={feature} className="flex items-start gap-3">
-                            <Check className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
-                            <span className="text-sm text-white/50">{feature}</span>
+
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-white/35">What’s included</p>
+                      <ul className="mt-5 grid gap-3 md:grid-cols-2">
+                        {service.included.map((item) => (
+                          <li key={item} className="flex items-start gap-3 text-sm text-white/65">
+                            <CheckCircle2 className="mt-0.5 h-4 w-4 text-blue-400 flex-shrink-0" />
+                            <span>{item}</span>
                           </li>
                         ))}
                       </ul>
+
+                      <div className="mt-8 flex flex-wrap gap-4">
+                        <Link
+                          href={createPageUrl(service.slug)}
+                          className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#0a0a0f] transition hover:bg-white/90"
+                        >
+                          View Service Details
+                          <ArrowRight className="h-4 w-4" />
+                        </Link>
+
+                        <Link
+                          href={`${createPageUrl("Contact")}?service=${encodeURIComponent(service.title)}&source=services-hub`}
+                          className="inline-flex items-center gap-2 rounded-full border border-white/10 px-6 py-3 text-sm font-medium text-white/80 transition hover:border-white/20 hover:text-white"
+                        >
+                          Start This Project
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
 
-          <div className="mt-16 text-center">
-            <Link
-              href={createPageUrl("StartProject")}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0a0a0f] font-medium rounded-full hover:bg-white/90 transition-all duration-300"
-            >
-              Discuss Your Project
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+          <div className="mt-16 rounded-3xl border border-white/8 bg-white/[0.03] p-8 lg:p-10">
+            <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-400">Advanced / custom</p>
+                <h3 className="mt-3 text-2xl font-semibold text-white">
+                  Need ecommerce, app builds, or a more custom system?
+                </h3>
+                <p className="mt-4 max-w-2xl text-white/50 leading-relaxed">
+                  Those offers can still live inside SDL, but the first pass should focus on your highest-clarity,
+                  easiest-to-sell money pages. We can layer the custom offers in next.
+                </p>
+              </div>
+
+              <Link
+                href={`${createPageUrl("Contact")}?source=services-advanced`}
+                className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-[#0a0a0f] transition hover:bg-white/90"
+              >
+                Discuss a Custom Project
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <CTASection />
+      <CTASection
+        title="Need a clearer path before you commit?"
+        description="Tell us what you are trying to build, improve, or fix, and we’ll point you toward the right service or package."
+        buttonText="Start Your Project"
+        buttonPage="Contact"
+      />
     </>
   );
 }

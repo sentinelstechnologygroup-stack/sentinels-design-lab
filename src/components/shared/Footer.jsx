@@ -1,8 +1,8 @@
-// src/components/layout/Footer.jsx
 "use client";
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { createPageUrl } from "@/utils";
 
 const footerSections = [
@@ -31,18 +31,15 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-[1.2fr_0.8fr] gap-10">
           <div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center shadow-[0_0_24px_rgba(59,130,246,0.35)]">
-                <span className="text-white text-sm font-bold">SDL</span>
-              </div>
-              <div>
-                <div className="text-white font-semibold leading-none">
-                  Sentinels Design Lab
-                </div>
-                <div className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/35 mt-1">
-                  Websites • Systems • Growth
-                </div>
-              </div>
+            <div className="flex items-center gap-4">
+              <Image
+                src="/images/logo.png"
+                alt="Sentinels Design Lab"
+                width={180}
+                height={56}
+                className="h-14 w-auto object-contain"
+              />
+
             </div>
 
             <p className="mt-5 max-w-xl text-white/40 leading-relaxed">
