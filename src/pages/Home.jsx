@@ -13,7 +13,7 @@ import HomePackagesPreview from "@/components/home/HomePackagesPreview";
 import HomeProofStrip from "@/components/home/HomeProofStrip";
 import HomeFinalCTA from "@/components/home/HomeFinalCTA";
 import WhyHireSDL from "@/components/home/WhyHireSDL";
-import ProofStrip from "@/components/Home/ProofStrip";
+import ProofStrip from "@/components/home/ProofStrip";
 import ProcessSteps from "@/components/home/ProcessSteps";
 
 export default function Home() {
