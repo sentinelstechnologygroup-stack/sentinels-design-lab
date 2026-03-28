@@ -67,12 +67,33 @@ const projectTypeOptions = [
   "Not sure yet",
 ];
 
+function normalizeOption(value, validOptions) {
+  if (!value) return "";
+  return validOptions.includes(value) ? value : "";
+}
+
+function normalizeSource(value) {
+  if (!value) return "direct";
+  return String(value).trim().toLowerCase();
+}
+
 export default function StartProjectPage() {
   const searchParams = useSearchParams();
 
-  const initialService = useMemo(() => searchParams.get("service") || "", [searchParams]);
-  const initialPackage = useMemo(() => searchParams.get("package") || "", [searchParams]);
-  const initialSource = useMemo(() => searchParams.get("source") || "direct", [searchParams]);
+  const initialService = useMemo(
+    () => normalizeOption(searchParams.get("service") || "", serviceOptions),
+    [searchParams]
+  );
+
+  const initialPackage = useMemo(
+    () => normalizeOption(searchParams.get("package") || "", packageOptions),
+    [searchParams]
+  );
+
+  const initialSource = useMemo(
+    () => normalizeSource(searchParams.get("source") || "direct"),
+    [searchParams]
+  );
 
   const [form, setForm] = useState({
     name: "",
@@ -115,6 +136,7 @@ export default function StartProjectPage() {
     const subjectParts = ["New SDL Start Project Submission"];
     if (form.service) subjectParts.push(`Service: ${form.service}`);
     if (form.packageInterest) subjectParts.push(`Package: ${form.packageInterest}`);
+    if (form.source) subjectParts.push(`Source: ${form.source}`);
 
     try {
       const response = await fetch(FORMSPREE_START_PROJECT_ENDPOINT, {
@@ -139,6 +161,9 @@ export default function StartProjectPage() {
           "Lead Source": form.source || "direct",
           "Detected Service": initialService || "—",
           "Detected Package": initialPackage || "—",
+          "Detected Intent Path": [initialService || "", initialPackage || "", initialSource || "direct"]
+            .filter(Boolean)
+            .join(" | "),
           "Page URL": typeof window !== "undefined" ? window.location.href : "—",
         }),
       });
@@ -158,7 +183,7 @@ export default function StartProjectPage() {
   };
 
   return (
-    <section className="min-h-screen bg-[#0a0a0f] pt-32 pb-20">
+    <section className="min-h-screen bg-[#0a0a0f] pb-20 pt-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr]">
           <div>
@@ -166,7 +191,7 @@ export default function StartProjectPage() {
               Start Project
             </span>
 
-            <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl leading-tight">
+            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl">
               Start your project with real context, not a blind inquiry
             </h1>
 
@@ -184,7 +209,8 @@ export default function StartProjectPage() {
                   <div>
                     <h3 className="text-sm font-medium text-white">Pre-qualified intake</h3>
                     <p className="mt-2 text-sm leading-relaxed text-white/45">
-                      We should know the service, package, budget range, and timeline before the first call.
+                      SDL should know the service, package, budget range, and timeline before the
+                      first call.
                     </p>
                   </div>
                 </div>

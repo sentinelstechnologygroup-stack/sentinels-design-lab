@@ -1,3 +1,4 @@
+// src/components/shared/CTASection.jsx
 "use client";
 
 import React from "react";
@@ -11,37 +12,50 @@ export default function CTASection({
   description = "Let's discuss your project and create a digital platform that drives real results.",
   buttonText = "Start a Project",
   buttonPage = "StartProject",
+  buttonHref = "",
+  secondaryText = "Get in touch",
+  secondaryPage = "Contact",
+  secondaryHref = "",
 }) {
+  const primaryLink = buttonHref || createPageUrl(buttonPage);
+  const secondaryLink = secondaryHref || createPageUrl(secondaryPage);
+
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative overflow-hidden py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0d0d1a] to-[#0a0a0f]" />
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
+        <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/5 blur-[120px]" />
       </div>
+
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="relative max-w-3xl mx-auto px-6 text-center"
+        className="relative mx-auto max-w-3xl px-6 text-center"
       >
-        <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+        <h2 className="text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl">
           {title}
         </h2>
-        <p className="mt-6 text-lg text-white/50 leading-relaxed">{description}</p>
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+
+        <p className="mt-6 text-lg leading-relaxed text-white/50">
+          {description}
+        </p>
+
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
-            href={createPageUrl(buttonPage)}
-            className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[#0a0a0f] font-medium rounded-full hover:bg-white/90 transition-all duration-300"
+            href={primaryLink}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-medium text-[#0a0a0f] transition-all duration-300 hover:bg-white/90"
           >
             {buttonText}
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="h-5 w-5" />
           </Link>
+
           <Link
-            href={createPageUrl("Contact")}
-            className="inline-flex items-center gap-2 px-8 py-4 text-white/60 hover:text-white font-medium transition-colors"
+            href={secondaryLink}
+            className="inline-flex items-center gap-2 px-8 py-4 font-medium text-white/60 transition-colors hover:text-white"
           >
-            Get in touch
+            {secondaryText}
           </Link>
         </div>
       </motion.div>
