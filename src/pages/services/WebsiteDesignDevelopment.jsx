@@ -3,7 +3,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Layers3,
+  MonitorSmartphone,
+  ShieldCheck,
+  Workflow,
+} from "lucide-react";
 import { createPageUrl } from "@/utils";
 import CTASection from "@/components/shared/CTASection";
 
@@ -35,26 +42,61 @@ const addOns = [
   "Conversion tracking and analytics setup",
 ];
 
+const fitItems = [
+  "Service businesses with an outdated or underperforming website",
+  "Companies running ads without a conversion-ready destination",
+  "Businesses that need stronger online credibility before growth campaigns",
+];
+
+const process = [
+  "We define the business goal, scope, and conversion priorities first.",
+  "SDL builds a cleaner site structure around trust, clarity, and action.",
+  "Once the foundation is in place, SEO, ads, and ongoing support become easier to layer in.",
+];
+
+const positioning = [
+  {
+    icon: Layers3,
+    title: "More than a visual refresh",
+    text: "A strong website should clarify the offer, improve trust, and support lead generation.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "Built for real use",
+    text: "The site should work across devices and make the next step obvious without friction.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Supports future growth",
+    text: "A better foundation prevents expensive rework when the business is ready to scale.",
+  },
+];
+
 export default function WebsiteDesignDevelopment() {
   return (
     <>
-      <section className="bg-[#0a0a0f] pt-32 pb-24">
+      <section className="bg-[#0a0a0f] pb-24 pt-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-4xl">
-            <span className="inline-block text-xs font-medium uppercase tracking-[0.2em] text-blue-400 mb-4">
-              Website Design & Development
+            <span className="mb-4 inline-block text-xs font-medium uppercase tracking-[0.2em] text-blue-400">
+              Website Design &amp; Development
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+
+            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl">
               Website design and development for businesses that need more than a pretty site
             </h1>
+
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/50">
-              We build websites that support credibility, lead generation, SEO structure, and future growth.
-              Every build is designed to be clean, strategic, and ready to work as part of a real business system.
+              SDL builds websites that support credibility, lead generation, SEO structure, and
+              future growth. The goal is a cleaner digital foundation that actually helps the
+              business move forward.
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link
-                href={`${createPageUrl("Contact")}?service=Website%20Design%20%26%20Development&source=service-website-design`}
+                href={`${createPageUrl("StartProject")}?service=${encodeURIComponent(
+                  "Website Design & Development"
+                )}&source=service-website-design-hero`}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 font-medium text-[#0a0a0f] transition hover:bg-white/90"
               >
                 Start a Website Project
@@ -71,12 +113,29 @@ export default function WebsiteDesignDevelopment() {
           </div>
 
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {[
-              "Service businesses with an outdated or underperforming website",
-              "Companies running ads without a conversion-ready destination",
-              "Businesses that need stronger online credibility before growth campaigns",
-            ].map((item) => (
-              <div key={item} className="rounded-3xl border border-white/8 bg-[#111118] p-6 text-white/65">
+            {positioning.map((item) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-3xl border border-white/8 bg-[#111118] p-6"
+                >
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/10">
+                    <Icon className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <h2 className="mt-5 text-base font-medium text-white">{item.title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-white/55">{item.text}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            {fitItems.map((item) => (
+              <div
+                key={item}
+                className="rounded-3xl border border-white/8 bg-[#111118] p-6 text-white/65"
+              >
                 {item}
               </div>
             ))}
@@ -88,7 +147,7 @@ export default function WebsiteDesignDevelopment() {
               <ul className="mt-6 space-y-4">
                 {included.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm text-white/65">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 text-blue-400 flex-shrink-0" />
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-400" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -97,11 +156,13 @@ export default function WebsiteDesignDevelopment() {
 
             <div className="space-y-6">
               <div className="rounded-3xl border border-white/8 bg-white/[0.03] p-8">
-                <p className="text-xs uppercase tracking-[0.2em] text-blue-400">What this actually does</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-400">
+                  What this actually does
+                </p>
                 <ul className="mt-6 space-y-4">
                   {outcomes.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm text-white/65">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-blue-400 flex-shrink-0" />
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-400" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -113,11 +174,61 @@ export default function WebsiteDesignDevelopment() {
                 <ul className="mt-6 space-y-4">
                   {addOns.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm text-white/65">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 text-blue-400 flex-shrink-0" />
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-400" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-16 grid gap-6 lg:grid-cols-[1fr_1fr]">
+            <div className="rounded-3xl border border-white/8 bg-[#111118] p-8 lg:p-10">
+              <div className="flex items-center gap-3">
+                <Workflow className="h-5 w-5 text-blue-400" />
+                <p className="text-xs uppercase tracking-[0.2em] text-blue-400">
+                  How this project usually works
+                </p>
+              </div>
+
+              <ul className="mt-6 space-y-4">
+                {process.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-white/65">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-blue-400" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-3xl border border-white/8 bg-white/[0.03] p-8 lg:p-10">
+              <p className="text-xs uppercase tracking-[0.2em] text-blue-400">Best next step</p>
+              <h3 className="mt-3 text-2xl font-semibold text-white">
+                Need the site foundation fixed before pushing harder on growth?
+              </h3>
+              <p className="mt-4 text-sm leading-relaxed text-white/55">
+                Start with the website build, then layer in SEO pages, paid traffic paths, and
+                support the right way instead of stacking tactics on a weak foundation.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <Link
+                  href={`${createPageUrl("StartProject")}?service=${encodeURIComponent(
+                    "Website Design & Development"
+                  )}&source=service-website-design-final`}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3.5 font-medium text-[#0a0a0f] transition hover:bg-white/90"
+                >
+                  Start a Website Project
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+
+                <Link
+                  href={createPageUrl("HostingMaintenance")}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-7 py-3.5 font-medium text-white/80 transition hover:border-white/20 hover:text-white"
+                >
+                  View Hosting &amp; Maintenance
+                </Link>
               </div>
             </div>
           </div>
@@ -126,9 +237,13 @@ export default function WebsiteDesignDevelopment() {
 
       <CTASection
         title="Need a better site foundation before you push harder on growth?"
-        description="Start with the website build, then layer in SEO pages, paid traffic paths, and ongoing support the right way."
+        description="Use Start Project so SDL gets the service context, business stage, and scope details up front."
         buttonText="Start a Website Project"
-        buttonPage="Contact"
+        buttonHref={`${createPageUrl("StartProject")}?service=${encodeURIComponent(
+          "Website Design & Development"
+        )}&source=service-website-design-cta`}
+        secondaryText="Explore Packages"
+        secondaryHref={createPageUrl("Packages")}
       />
     </>
   );
