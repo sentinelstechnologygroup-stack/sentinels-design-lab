@@ -1,4 +1,3 @@
-// app/contact/page.jsx
 import { Suspense } from "react";
 import ContactPage from "@/pages/Contact";
 

@@ -8,7 +8,7 @@ import {
   CheckCircle2,
   MousePointerClick,
   BadgeDollarSign,
-  Funnel,
+  Filter,
   Workflow,
 } from "lucide-react";
 import { createPageUrl } from "@/utils";
@@ -36,7 +36,7 @@ const addOns = [
   "PPC landing page builds",
   "Analytics and event tracking",
   "CRM or lead routing improvements",
-  "Follow-up funnel support",
+  "Follow-up Filter support",
 ];
 
 const fitItems = [
@@ -52,7 +52,7 @@ const positioning = [
     text: "Good ads still fail when the landing page does not support trust and action.",
   },
   {
-    icon: Funnel,
+    icon: Filter,
     title: "Built around conversion flow",
     text: "The page should reduce friction, clarify the offer, and make inquiry easier.",
   },
@@ -205,7 +205,7 @@ export default function PpcPaidAds() {
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-white/55">
                 Make sure the destination page is built to support the spend before you push more
-                traffic into a weak funnel.
+                traffic into a weak Filter.
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
